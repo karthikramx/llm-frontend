@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>LLM Front End</h1>
-        <h2>This will be boiler plate code of create LLM applications</h2>
+        <h2>This will be boiler plate code to create LLM applications</h2>
       </header>
     </div>
   );
