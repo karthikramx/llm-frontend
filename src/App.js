@@ -28,6 +28,7 @@ function App() {
               width: '25ch',
               color: 'white',
               mr: 2,
+
               '.MuiOutlinedInput-root': {
                 fieldset: { borderColor: 'white' },
                 '&.Mui-focused fieldset': { borderColor: 'white' },
@@ -36,9 +37,44 @@ function App() {
               '& .MuiFormLabel-root': { color: 'white' },
               '& .MuiFormLabel-root.Mui-focused': { color: 'white' },
             }} />
-
           <Button width='30' color='warning' variant="contained" type='submit' sx={{ height: '50px' }}>Explore</Button>
         </div>
+        <TextField
+          label="Question"
+          inputProps={{ style: { color: 'white' } }}
+          sx={{
+            width: '50ch',
+            color: 'white',
+            mb: 2,
+            mt: 2,
+            '.MuiOutlinedInput-root': {
+              fieldset: { borderColor: 'white' },
+              '&.Mui-focused fieldset': { borderColor: 'white' },
+              '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'white' },
+            },
+            '& .MuiFormLabel-root': { color: 'white' },
+            '& .MuiFormLabel-root.Mui-focused': { color: 'white' },
+          }}></TextField>
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Answer"
+          inputProps={{ style: { color: 'white' } }}
+          multiline
+          maxRows={100}
+          sx={{
+            width: '50ch',
+            color: 'white',
+            mb: 2,
+            mt: 2,
+            '.MuiOutlinedInput-root': {
+              fieldset: { borderColor: 'white' },
+              '&.Mui-focused fieldset': { borderColor: 'white' },
+              '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'white' },
+            },
+            '& .MuiFormLabel-root': { color: 'white' },
+            '& .MuiFormLabel-root.Mui-focused': { color: 'white' },
+          }}
+        />
       </header>
     </div>
   );
