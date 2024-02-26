@@ -1,4 +1,7 @@
 import './App.css';
+import Sidebar from './components/Sidebar';
+import React, { } from 'react';
+
 
 import { TextField, Button } from '@mui/material';
 // import { useState } from 'react';
@@ -14,10 +17,26 @@ import { TextField, Button } from '@mui/material';
         ></Box> }
 */
 function App() {
+  //const [topic, setTopic] = useState(''); // state for the topic
+
+  const handleClick = async () => {
+    try {
+      const response = await fetch(`https://llmbackend-red-sound-9192-billowing-frost-5505.fly.dev/`)
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+
   return (
     <div className="App">
+      <div style={{ display: 'flex', alignItems: 'left' }}>
+        <Sidebar />
+      </div>
       <header className="App-header">
         <h1>LLM QnA App</h1>
+
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <TextField
             id="outlined-basic"
@@ -37,7 +56,7 @@ function App() {
               '& .MuiFormLabel-root': { color: 'white' },
               '& .MuiFormLabel-root.Mui-focused': { color: 'white' },
             }} />
-          <Button width='30' color='warning' variant="contained" type='submit' sx={{ height: '50px' }}>Explore</Button>
+          <Button onClick={handleClick} width='30' color='warning' variant="contained" type='submit' sx={{ height: '50px' }}>Explore</Button>
         </div>
         <TextField
           label="Question"
