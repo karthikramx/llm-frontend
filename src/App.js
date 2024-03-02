@@ -2,17 +2,30 @@ import './App.css';
 import Sidebar from './components/Sidebar';
 import React, { } from 'react';
 import { CircularProgress } from '@mui/material';
-
-
 import { TextField, Button } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 function App() {
-  const [topic, setTopic] = useState(''); // state for the topic
+  const [topic, setTopic] = useState('topic'); // state for the topic
   const [loading, setLoading] = useState(false);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
+  const [topics, setTopics] = useState([]);
+
+
+  const handleTopicChange = (topic) => {
+    console.log(topic)
+    const response = fetch(`https://llmbackend.fly.dev/settopic`,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        body: JSON.stringify({ "topic": topic })
+      });
+    console.log(response)
+    setTopic(topic);
+  }
+
   const handleClick = async () => {
     try {
       setLoading(true);
@@ -21,7 +34,7 @@ function App() {
         setLoading(false);
         return;
       }
-      const response = await fetch(`https://llmbackend-empty-moon-6774-dawn-surf-6305.fly.dev/topic`,
+      const response = await fetch(`https://llmbackend.fly.dev/topic`,
         {
           headers: { 'Content-Type': 'application/json' },
           method: 'POST',
@@ -45,7 +58,7 @@ function App() {
         return;
       }
       console.log(question)
-      const response = await fetch(`https://llmbackend-empty-moon-6774-dawn-surf-6305.fly.dev/ask`,
+      const response = await fetch(`https://llmbackend.fly.dev/ask`,
         {
           headers: { 'Content-Type': 'application/json' },
           method: 'POST',
@@ -59,10 +72,25 @@ function App() {
     setLoading(false);
   }
 
+  useEffect(() => {
+    const loadTopics = async () => {
+      const response = await fetch(`https://llmbackend.fly.dev/listtopics`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+          method: 'GET'
+        });
+      const data = await response.json();
+      console.log(data);
+      setTopics(data.topics);
+    }
+
+    loadTopics();
+  }, []);
+
   return (
     <div className="App">
       <div style={{ display: 'flex', alignItems: 'left' }}>
-        <Sidebar />
+        <Sidebar topics={topics} handleTopicChange={handleTopicChange} />
       </div>
 
       <header className="App-header">
@@ -74,7 +102,7 @@ function App() {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <TextField
             id="outlined-basic"
-            label="Topic"
+            label={topic}
             variant="outlined"
             onChange={(e) => setTopic(e.target.value)}
             inputProps={{ style: { color: 'white' } }}
